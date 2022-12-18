@@ -1,25 +1,23 @@
-import NavWrapper from './components/NavWrapper';
-import './App.css';
-// import Home from './components/Home'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {lazy} from 'react'
-
-const Home = lazy(()=>import('./components/Home'));
-const Store = lazy(()=>import('./components/Store'));
-const About = lazy(()=>import('./components/About'));
+import { useState } from 'react';
+import './App.css'
+import MainDash from './components/MainDash/MainDash';
+import RightSide from './components/RigtSide/RightSide';
+import Sidebar from './components/Sidebar';
 
 function App() {
+  const [portal,setPortal] = useState('Statics');
+
+  const onClickHandler =(item)=>{
+    setPortal(item.heading)
+  }
 
   return (
-   <BrowserRouter>
-   <Routes>
-      <Route path='/' element={<NavWrapper/>}>
-        <Route index  element={<Home/>} />
-        <Route path='/store' element={<Store/>} />
-        <Route path='/about' element={<About/>} />
-      </Route>
-   </Routes>    
-   </BrowserRouter>
+    <div className="App">
+      <div className="AppGlass">
+        <Sidebar onClick ={onClickHandler}/>
+        <MainDash portal={portal} />
+      </div>
+    </div>
   );
 }
 
